@@ -1,19 +1,7 @@
-const Message = require('./message');
-const Channel = require('./channel');
-const Author = require('./author');
+const Students = require('./students')
+const Campuses = require('./campuses')
 
-Channel.hasMany(Message, {
-  onDelete: 'cascade',
-  hooks: true
-});
+Students.belongsTo(Campuses)
+Campuses.hasMany(Students)
 
-Author.hasMany(Message);
-
-Message.belongsTo(Channel);
-Message.belongsTo(Author);
-
-module.exports = {
-  Channel,
-  Message,
-  Author
-};
+module.exports = { Students, Campuses }

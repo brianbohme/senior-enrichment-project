@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import store, { postMessage, writeMessage } from '../store';
+import store, { postStudent, writeStudent } from '../store';
 
-export default class NewMessageEntry extends Component {
+export default class NewStudentEntry extends Component {
 
-  constructor () {
+  constructor() {
     super();
     this.state = store.getState();
 
@@ -11,30 +11,30 @@ export default class NewMessageEntry extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.unsubscribe();
   }
 
-  handleChange (evt) {
-    store.dispatch(writeMessage(evt.target.value))
+  handleChange(evt) {
+    store.dispatch(writeStudent(evt.target.value))
   }
 
-  handleSubmit (evt) {
+  handleSubmit(evt) {
     evt.preventDefault();
 
-    const { name, newMessageEntry } = this.state;
-    const content = newMessageEntry;
-    const { channelId } = this.props;
+    const { newStudentEntry } = this.state;
+    const name = newStudentEntry;
+    const { campusId } = this.props;
 
-    store.dispatch(postMessage({ name, content, channelId }));
-    store.dispatch(writeMessage(''));
+    store.dispatch(postStudent({ name, campusId }));
+    store.dispatch(writeStudent(''));
   }
 
-  render () {
+  render() {
     return (
       <form id="new-message-form" onSubmit={this.handleSubmit}>
         <div className="input-group input-group-lg">
@@ -42,12 +42,12 @@ export default class NewMessageEntry extends Component {
             className="form-control"
             type="text"
             name="content"
-            value={this.state.newMessageEntry}
+            value={this.state.newStudentEntry}
             onChange={this.handleChange}
-            placeholder="Say something nice..."
+            placeholder="Enter New Student's Name"
           />
           <span className="input-group-btn">
-            <button className="btn btn-default" type="submit">Chat!</button>
+            <button className="btn btn-default" type="submit">Add to Campus</button>
           </span>
         </div>
       </form>

@@ -1,7 +1,7 @@
 {
-  "name": "stackchat",
+  "name": "campusmanager",
   "version": "1.0.0",
-  "description": "A chatty appy chat app",
+  "description": "A full-stack Fullstack campus manager",
   "main": "index.js",
   "scripts": {
     "start": "webpack -w & nodemon server --ignore /client --ignore /public",
@@ -9,7 +9,7 @@
     "build-client": "webpack",
     "seed": "node seed.js"
   },
-  "author": "",
+  "author": "Brian Bohme",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.15.3",

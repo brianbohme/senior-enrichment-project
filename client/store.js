@@ -8,181 +8,147 @@ import socket from './socket';
 // INITIAL STATE
 
 const initialState = {
-  messages: [],
-  name: 'Reggie',
-  newMessageEntry: '',
-  channels: [],
-  newChannelEntry: ''
+  campuses: [],
+  newCampusEntry: "",
+  students: [],
+  newStudentEntry: ""
 };
 
 // ACTION TYPES
 
-const UPDATE_NAME = 'UPDATE_NAME';
-const GET_MESSAGE = 'GET_MESSAGE';
-const GET_MESSAGES = 'GET_MESSAGES';
-const WRITE_MESSAGE = 'WRITE_MESSAGE';
-const GET_CHANNELS = 'GET_CHANNELS';
-const GET_CHANNEL = 'GET_CHANNEL';
-const WRITE_CHANNEL = 'WRITE_CHANNEL';
+const GET_STUDENT = 'GET_STUDENT';
+const GET_STUDENTS = 'GET_STUDENTS';
+const WRITE_STUDENT = 'WRITE_STUDENT';
+const GET_CAMPUSES = 'GET_CAMPUSES';
+const GET_CAMPUS = 'GET_CAMPUS';
+const WRITE_CAMPUS = 'WRITE_CAMPUS';
 
 // ACTION CREATORS
 
-export function updateName(name) {
-  const action = { type: UPDATE_NAME, name };
+export function getStudent(student) {
+  const action = { type: GET_STUDENT, student };
   return action;
 }
 
-export function getMessage(message) {
-  const action = { type: GET_MESSAGE, message };
+export function getStudents(students) {
+  const action = { type: GET_STUDENTS, students };
   return action;
 }
 
-export function getMessages(messages) {
-  const action = { type: GET_MESSAGES, messages };
+export function writeStudent(content) {
+  const action = { type: WRITE_STUDENT, content };
   return action;
 }
 
-export function writeMessage(content) {
-  const action = { type: WRITE_MESSAGE, content };
+export function getCampuses(campuses) {
+  const action = { type: GET_CAMPUSES, campuses };
   return action;
 }
 
-export function getChannels(channels) {
-  const action = { type: GET_CHANNELS, channels };
+export function getCampus(campus) {
+  const action = { type: GET_CAMPUS, campus };
   return action;
 }
 
-export function getChannel(channel) {
-  const action = { type: GET_CHANNEL, channel };
+export function writeCampus(content) {
+  const action = { type: WRITE_CAMPUS, content };
   return action;
 }
 
-export function writeChannel(content) {
-  const action = { type: WRITE_CHANNEL, content };
-  return action;
-}
 
 // THUNK CREATORS
 
-export function fetchMessages() {
+export function fetchStudents() {
 
   return function thunk(dispatch) {
-    return axios.get('/api/messages')
+    return axios.get('/api/students')
       .then(res => res.data)
-      .then(messages => {
-        const action = getMessages(messages);
+      .then(students => {
+        const action = getStudents(students);
         dispatch(action);
       });
   }
 }
 
-export function fetchChannels() {
+export function fetchCampuses() {
 
   return function thunk(dispatch) {
-    return axios.get('/api/channels')
+    return axios.get('/api/campuses')
       .then(res => res.data)
-      .then(channels => {
-        const action = getChannels(channels);
+      .then(campuses => {
+        const action = getCampuses(campuses);
         dispatch(action);
       });
   }
 }
 
-export function postMessage(message) {
+export function postStudent(student, history) {
 
   return function thunk(dispatch) {
-    return axios.post('/api/messages', message)
+    return axios.post('/api/students', student)
       .then(res => res.data)
-      .then(newMessage => {
-        const action = getMessage(newMessage);
+      .then(newStudent => {
+        const action = getStudent(newStudent);
         dispatch(action);
-        socket.emit('new-message', newMessage);
-      });
+        socket.emit('new-student', newStudent)
+      })
   }
 }
 
-export function postChannel(channel, history) {
+export function postCampus(campus, history) {
 
   return function thunk(dispatch) {
-    return axios.post('/api/channels', channel)
+    return axios.post('/api/campuses', campus)
       .then(res => res.data)
-      .then(newChannel => {
-        const action = getChannel(newChannel);
+      .then(newCampus => {
+        const action = getCampus(newCampus);
         dispatch(action);
-        socket.emit('new-channel', newChannel);
-        history.push(`/channels/${newChannel.id}`)
+        socket.emit('new-campus', newCampus);
+        history.push(`/campuses/${newCampus.id}`)
       })
   }
 }
 
 // REDUCER
 
-/**
- * Whoa! What is this { ...state } business?!?
- * This is the spread operator like we've seen before - but this time, we're using it with an Object!
- * When we use the spread operator on an object, it extracts all of the key-value pairs on that object into a new object!
- * Sound familiar? It acts like Object.assign!
- *
- * For example:
- *
- *    const obj1 = { a: 1 };
- *    const obj2 = { ...obj1, b: 2  }
- *    console.log(obj2) // { a: 1, b: 2 }
- *
- * This is the same result we would have gotten if we had said:
- *
- *    const obj2 = Object.assign({}, obj1, { b: 2 })
- *
- * However, it's much less verbose!
- * Is there anything the spread operator DOESN'T do?!?
- *
- * Note: this is still an experimental language feature (though it is on its way to becoming official).
- * We can use it now because we are using a special babel plugin with webpack (babel-preset-stage-2)!
- */
 function reducer(state = initialState, action) {
 
   switch (action.type) {
 
-    case UPDATE_NAME:
+    case GET_CAMPUSES:
       return {
         ...state,
-        name: action.name
+        campuses: action.campuses
       };
 
-    case GET_MESSAGES:
+    case GET_CAMPUS:
       return {
         ...state,
-        messages: action.messages
+        campuses: [...state.campuses, action.campus]
       };
 
-    case GET_MESSAGE:
+    case WRITE_CAMPUS:
       return {
         ...state,
-        messages: [...state.messages, action.message]
+        newCampusEntry: action.content
       };
 
-    case WRITE_MESSAGE:
+    case GET_STUDENTS:
       return {
         ...state,
-        newMessageEntry: action.content
-      };
-
-    case GET_CHANNELS:
-      return {
-        ...state,
-        channels: action.channels
+        students: action.students
       }
 
-    case GET_CHANNEL:
+    case GET_STUDENT:
       return {
         ...state,
-        channels: [...state.channels, action.channel]
+        students: [...state.students, action.student]
       }
 
-    case WRITE_CHANNEL:
+    case WRITE_STUDENT:
       return {
         ...state,
-        newChannelEntry: action.content
+        newStudentEntry: action.content
       }
 
     default:
@@ -193,10 +159,7 @@ function reducer(state = initialState, action) {
 
 const store = createStore(
   reducer,
-  composeWithDevTools(applyMiddleware(
-    thunkMiddleware,
-    createLogger()
-  ))
+  applyMiddleware(thunkMiddleware, createLogger())
 );
 
 export default store;
