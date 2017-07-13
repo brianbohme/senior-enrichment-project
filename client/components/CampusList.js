@@ -34,13 +34,11 @@ function CampusList(props) {
   );
 }
 
-/** Write your `connect` component below! **/
+//Connect Component
 const mapStateToProps = state => ({
   campuses: state.campuses,
   students: state.students
 })
-
-
 
 const CampusListContainer = withRouter(connect(
   mapStateToProps

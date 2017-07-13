@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import StudentList from './StudentList';
@@ -8,6 +8,7 @@ import NewCampusEntry from './NewCampusEntry';
 import StudentView from './StudentView';
 import store, { fetchStudents, fetchCampuses } from '../store';
 import Home from './Home';
+import ErrorPage from './ErrorPage';
 import AllStudents from './AllStudents';
 
 export default class Main extends Component {
@@ -30,7 +31,8 @@ export default class Main extends Component {
             <Route path="/campuses/:campusId" component={StudentList} />
             <Route path="/students/:studentId" component={StudentView} />
             <Route path="/students" component={AllStudents} />
-            <Route component={Home} />
+            <Route exact path="/" component={Home} />
+            <Route component={ErrorPage} />
           </Switch>
         </main>
       </div>
@@ -39,4 +41,3 @@ export default class Main extends Component {
 }
 
 
-            // <Route path="/students/:studentId" component={StudentView} />

@@ -1,43 +1,3 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import { writeStudent, updateStudents } from '../store';
-
-// function StudentView(props) {
-//   return (
-//     <form onSubmit={props.handleSubmit}>
-//       <div className="form-group">
-//         <label htmlFor="name">Edit Student Info: </label>
-//         <input className="form-control" type="text" name="studentName" placeholder="Update Name (leave blank if no update)" value={props.newStudentEntry.name} onChange={props.handleChange} />
-//         <input className="form-control" type="text" name="studentEmail" placeholder="Updated Email (leave blank if no update)" value={props.newStudentEntry.email} onChange={props.handleChange} />
-//         <input className="form-control" type="text" name="studentCampus" placeholder="Updated Campus (leave blank if no update)" value={props.newStudentEntry.campus} onChange={props.handleChange} />
-//       </div>
-//       <div className="form-group">
-//         <button type="submit" className="btn btn-default">Update</button>
-//       </div>
-//     </form>
-//   );
-// }
-
-// /** Write your `connect` component below! **/
-// const mapStateToProps = (state, ownProps) => ({
-//   newStudentEntry: state.newStudentEntry
-// });
-
-// const mapDispatchToProps = (dispatch, ownProps) => ({
-//   handleChange: (event) => dispatch(writeStudent(event.target.value)),
-//   handleSubmit: (event) => {
-//     event.preventDefault();
-//     const name = event.target.studentName.value;
-//     dispatch(updateStudent({ name }))
-//   }
-// });
-
-// const Container = connect(mapStateToProps, mapDispatchToProps)(StudentView)
-
-// export default Container;
-
-
-
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateStudents, removeStudents } from '../store';
@@ -155,3 +115,46 @@ const mapState = ({ students }, ownProps) => {
 const mapDispatch = { updateStudents, removeStudents };
 
 export default connect(mapState, mapDispatch)(UpdateStudent);
+
+
+
+
+
+// import React, { Component } from 'react';
+// import { connect } from 'react-redux';
+// import { writeStudent, updateStudents } from '../store';
+
+// function StudentView(props) {
+//   return (
+//     <form onSubmit={props.handleSubmit}>
+//       <div className="form-group">
+//         <label htmlFor="name">Edit Student Info: </label>
+//         <input className="form-control" type="text" name="studentName" placeholder="Update Name (leave blank if no update)" value={props.newStudentEntry.name} onChange={props.handleChange} />
+//         <input className="form-control" type="text" name="studentEmail" placeholder="Updated Email (leave blank if no update)" value={props.newStudentEntry.email} onChange={props.handleChange} />
+//         <input className="form-control" type="text" name="studentCampus" placeholder="Updated Campus (leave blank if no update)" value={props.newStudentEntry.campus} onChange={props.handleChange} />
+//       </div>
+//       <div className="form-group">
+//         <button type="submit" className="btn btn-default">Update</button>
+//       </div>
+//     </form>
+//   );
+// }
+
+// /** Write your `connect` component below! **/
+// const mapStateToProps = (state, ownProps) => ({
+//   newStudentEntry: state.newStudentEntry
+// });
+
+// const mapDispatchToProps = (dispatch, ownProps) => ({
+//   handleChange: (event) => dispatch(writeStudent(event.target.value)),
+//   handleSubmit: (event) => {
+//     event.preventDefault();
+//     const name = event.target.studentName.value;
+//     dispatch(updateStudent({ name }))
+//   }
+// });
+
+// const Container = connect(mapStateToProps, mapDispatchToProps)(StudentView)
+
+// export default Container;
+

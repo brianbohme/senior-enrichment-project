@@ -24,7 +24,3 @@ export default class Navbar extends Component {
   }
 }
 
-
-          //  <li>
-          //       <h3>Registered Students</h3>
-          //     </li>

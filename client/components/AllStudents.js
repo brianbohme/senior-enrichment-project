@@ -20,6 +20,8 @@ const AllStudents = props => (
   </div>
 );
 
+//Connect Component
+
 const mapStateToProps = state => ({
   students: state.students
 });

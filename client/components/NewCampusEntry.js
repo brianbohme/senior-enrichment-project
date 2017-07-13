@@ -16,7 +16,8 @@ function NewCampusEntry(props) {
   );
 }
 
-/** Write your `connect` component below! **/
+//Connect Component
+
 const mapStateToProps = (state, ownProps) => ({
   newCampusEntry: state.newCampusEntry
 });
