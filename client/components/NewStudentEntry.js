@@ -7,7 +7,8 @@ export default class NewStudentEntry extends Component {
     super();
     this.state = store.getState();
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -19,19 +20,24 @@ export default class NewStudentEntry extends Component {
     this.unsubscribe();
   }
 
-  handleChange(evt) {
-    store.dispatch(writeStudent(evt.target.value))
+  handleNameChange(evt) {
+    store.dispatch(writeStudent({ name: evt.target.value, email: this.state.newStudentEntry.email }))
+  }
+
+  handleEmailChange(evt) {
+    store.dispatch(writeStudent({ name: this.state.newStudentEntry.name, email: evt.target.value }))
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
 
     const { newStudentEntry } = this.state;
-    const name = newStudentEntry;
+    const name = newStudentEntry.name;
+    const email = newStudentEntry.email;
     const { campusId } = this.props;
 
-    store.dispatch(postStudent({ name, campusId }));
-    store.dispatch(writeStudent(''));
+    store.dispatch(postStudent({ name, email, campusId }));
+    store.dispatch(writeStudent({ name: '', email: '' }));
   }
 
   render() {
@@ -42,9 +48,19 @@ export default class NewStudentEntry extends Component {
             className="form-control"
             type="text"
             name="content"
-            value={this.state.newStudentEntry}
-            onChange={this.handleChange}
+            value={this.state.newStudentEntry.name}
+            onChange={this.handleNameChange}
             placeholder="Enter New Student's Name"
+            required
+          />
+          <input
+            className="form-control"
+            type="text"
+            name="content"
+            value={this.state.newStudentEntry.email}
+            onChange={this.handleEmailChange}
+            placeholder="Enter New Student's Email"
+            required
           />
           <span className="input-group-btn">
             <button className="btn btn-default" type="submit">Add to Campus</button>
@@ -54,3 +70,4 @@ export default class NewStudentEntry extends Component {
     );
   }
 }
+

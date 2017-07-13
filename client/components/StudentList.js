@@ -27,7 +27,7 @@ export default class StudentList extends Component {
     return (
       <div>
         <ul className="media-list">
-          {filteredStudents.map(student => <Student student={student} key={student.id} />)}
+          {filteredStudents.map(student => <Student student={student} key={student.id} id={student.id} />)}
         </ul>
         <NewStudentEntry campusId={campusId} />
       </div>

@@ -28,3 +28,13 @@ router.delete('/:campusId', function (req, res, next) {
     .then(() => res.status(204).end())
     .catch(next);
 });
+
+router.put('/:campusId', function (req, res, next) {
+  Campuses.findById(req.params.campusId)
+    .then(campus => {
+      let update = campus.update(req.body);
+      return update
+    })
+    .then(update => res.json(update))
+    .catch(next);
+});

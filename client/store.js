@@ -9,9 +9,9 @@ import socket from './socket';
 
 const initialState = {
   campuses: [],
-  newCampusEntry: "",
+  newCampusEntry: '',
   students: [],
-  newStudentEntry: ""
+  newStudentEntry: { name: '', email: '', campus: 0 },
 };
 
 // ACTION TYPES
@@ -19,95 +19,83 @@ const initialState = {
 const GET_STUDENT = 'GET_STUDENT';
 const GET_STUDENTS = 'GET_STUDENTS';
 const WRITE_STUDENT = 'WRITE_STUDENT';
+const UPDATE_STUDENT = 'UPDATE_STUDENT';
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const GET_CAMPUS = 'GET_CAMPUS';
 const WRITE_CAMPUS = 'WRITE_CAMPUS';
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS'
 
 // ACTION CREATORS
 
-export function getStudent(student) {
-  const action = { type: GET_STUDENT, student };
-  return action;
-}
+export const getStudent = student => ({ type: GET_STUDENT, student });
 
-export function getStudents(students) {
-  const action = { type: GET_STUDENTS, students };
-  return action;
-}
+export const getStudents = students => ({ type: GET_STUDENTS, students });
 
-export function writeStudent(content) {
-  const action = { type: WRITE_STUDENT, content };
-  return action;
-}
+export const writeStudent = content => ({ type: WRITE_STUDENT, content });
 
-export function getCampuses(campuses) {
-  const action = { type: GET_CAMPUSES, campuses };
-  return action;
-}
+export const updateStudent = student => ({ type: UPDATE_STUDENT, student });
 
-export function getCampus(campus) {
-  const action = { type: GET_CAMPUS, campus };
-  return action;
-}
+export const getCampuses = campuses => ({ type: GET_CAMPUSES, campuses });
 
-export function writeCampus(content) {
-  const action = { type: WRITE_CAMPUS, content };
-  return action;
-}
+export const getCampus = campus => ({ type: GET_CAMPUS, campus });
+
+export const writeCampus = content => ({ type: WRITE_CAMPUS, content });
+
+export const updateCampus = campus => ({ type: UPDATE_CAMPUS, campus });
 
 
 // THUNK CREATORS
 
-export function fetchStudents() {
+export const fetchStudents = () => dispatch => {
+  axios.get('/api/students')
+    .then(res => res.data)
+    .then(students => {
+      const action = getStudents(students);
+      dispatch(action);
+    });
+};
 
-  return function thunk(dispatch) {
-    return axios.get('/api/students')
-      .then(res => res.data)
-      .then(students => {
-        const action = getStudents(students);
-        dispatch(action);
-      });
-  }
-}
+export const fetchCampuses = () => dispatch => {
+  axios.get('/api/campuses')
+    .then(res => res.data)
+    .then(campuses => {
+      const action = getCampuses(campuses);
+      dispatch(action);
+    });
+};
 
-export function fetchCampuses() {
+export const postStudent = (student, history) => dispatch => {
+  axios.post('/api/students', student)
+    .then(res => res.data)
+    .then(newStudent => {
+      const action = getStudent(newStudent);
+      dispatch(action);
+      socket.emit('new-student', newStudent)
+    })
+};
 
-  return function thunk(dispatch) {
-    return axios.get('/api/campuses')
-      .then(res => res.data)
-      .then(campuses => {
-        const action = getCampuses(campuses);
-        dispatch(action);
-      });
-  }
-}
+export const postCampus = (campus, history) => dispatch => {
+  axios.post('/api/campuses', campus)
+    .then(res => res.data)
+    .then(newCampus => {
+      const action = getCampus(newCampus);
+      dispatch(action);
+      socket.emit('new-campus', newCampus);
+      history.push(`/campuses/${newCampus.id}`)
+    })
+};
 
-export function postStudent(student, history) {
+export const updateStudents = (id, student) => dispatch => {
+  axios.put(`/api/students/${id}`, student)
+    .then(res => dispatch(updateStudent(res.data)))
+    .catch(err => console.error(`Student update unsuccessful!`, err));
+};
 
-  return function thunk(dispatch) {
-    return axios.post('/api/students', student)
-      .then(res => res.data)
-      .then(newStudent => {
-        const action = getStudent(newStudent);
-        dispatch(action);
-        socket.emit('new-student', newStudent)
-      })
-  }
-}
-
-export function postCampus(campus, history) {
-
-  return function thunk(dispatch) {
-    return axios.post('/api/campuses', campus)
-      .then(res => res.data)
-      .then(newCampus => {
-        const action = getCampus(newCampus);
-        dispatch(action);
-        socket.emit('new-campus', newCampus);
-        history.push(`/campuses/${newCampus.id}`)
-      })
-  }
-}
+export const updateCampuses = (id, campus) => dispatch => {
+  axios.put(`/api/campuses/${id}`, campus)
+    .then(res => dispatch(updateCampus(res.data)))
+    .catch(err => console.error(`Campus update unsuccessful!`, err));
+};
 
 // REDUCER
 
@@ -149,6 +137,22 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         newStudentEntry: action.content
+      }
+
+    case UPDATE_STUDENT:
+      return {
+        ...state,
+        students: state.students.map(student => (
+          action.student.id === student.id ? action.student : student
+        ))
+      }
+
+    case UPDATE_CAMPUS:
+      return {
+        ...state,
+        campuses: state.campuses.map(campus => (
+          action.campus.id === campus.id ? action.campus : campus
+        ))
       }
 
     default:
