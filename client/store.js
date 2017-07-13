@@ -4,6 +4,7 @@ import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import socket from './socket';
+import { CampusList } from './components/CampusList';
 
 // INITIAL STATE
 
@@ -23,7 +24,8 @@ const UPDATE_STUDENT = 'UPDATE_STUDENT';
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const GET_CAMPUS = 'GET_CAMPUS';
 const WRITE_CAMPUS = 'WRITE_CAMPUS';
-const UPDATE_CAMPUS = 'UPDATE_CAMPUS'
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
+const REMOVE_STUDENT = 'REMOVE_STUDENT';
 
 // ACTION CREATORS
 
@@ -34,6 +36,8 @@ export const getStudents = students => ({ type: GET_STUDENTS, students });
 export const writeStudent = content => ({ type: WRITE_STUDENT, content });
 
 export const updateStudent = student => ({ type: UPDATE_STUDENT, student });
+
+export const removeStudent = id => ({ type: REMOVE_STUDENT, id });
 
 export const getCampuses = campuses => ({ type: GET_CAMPUSES, campuses });
 
@@ -85,9 +89,12 @@ export const postCampus = (campus, history) => dispatch => {
     })
 };
 
-export const updateStudents = (id, student) => dispatch => {
+export const updateStudents = (id, student, history) => dispatch => {
   axios.put(`/api/students/${id}`, student)
-    .then(res => dispatch(updateStudent(res.data)))
+    .then(res => {
+      dispatch(updateStudent(res.data));
+      history.push(`/campuses/${student.campusId}`)
+    })
     .catch(err => console.error(`Student update unsuccessful!`, err));
 };
 
@@ -95,6 +102,13 @@ export const updateCampuses = (id, campus) => dispatch => {
   axios.put(`/api/campuses/${id}`, campus)
     .then(res => dispatch(updateCampus(res.data)))
     .catch(err => console.error(`Campus update unsuccessful!`, err));
+};
+
+export const removeStudents = (id, history) => dispatch => {
+  dispatch(removeStudent(id));
+  axios.delete(`/api/students/${id}`)
+    .then(res => history.push(`/campuses/1`))
+    .catch(err => console.error(`Removing student unsuccessful!`, err));
 };
 
 // REDUCER
@@ -153,6 +167,12 @@ function reducer(state = initialState, action) {
         campuses: state.campuses.map(campus => (
           action.campus.id === campus.id ? action.campus : campus
         ))
+      }
+
+    case REMOVE_STUDENT:
+      return {
+        ...state,
+        students: state.students.filter(student => student.id !== action.id)
       }
 
     default:
