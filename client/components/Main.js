@@ -7,6 +7,8 @@ import Student from './Student';
 import NewCampusEntry from './NewCampusEntry';
 import StudentView from './StudentView';
 import store, { fetchStudents, fetchCampuses } from '../store';
+import Home from './Home';
+import AllStudents from './AllStudents';
 
 export default class Main extends Component {
 
@@ -27,7 +29,8 @@ export default class Main extends Component {
             <Route path="/new-campus" component={NewCampusEntry} />
             <Route path="/campuses/:campusId" component={StudentList} />
             <Route path="/students/:studentId" component={StudentView} />
-            <Redirect to="/campuses/1" />
+            <Route path="/students" component={AllStudents} />
+            <Route component={Home} />
           </Switch>
         </main>
       </div>
