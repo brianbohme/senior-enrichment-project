@@ -1,19 +1,23 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function Campus(props) {
 
   const campus = props.campus;
 
   return (
-    <li className="media">
-      <div className="media-left">
-        <a href="#">
-          <img className="media-object" src={campus.image} alt="image" />
-        </a>
-      </div>
-      <div className="media-body">
-        <h5 className="media-heading">{campus.name}</h5>
-      </div>
-    </li>
-  );
-}
+    <div>
+      <li>
+        <img width="250" height="250" src={campus.image} />
+      </li>
+      <br />
+      <li>
+        <NavLink to={`/campuses/${campus.id}`}>
+          <h4>{campus.name}</h4>
+        </NavLink>
+      </li>
+      <br />
+      <br />
+    </div>
+  )
+};

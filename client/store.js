@@ -100,7 +100,7 @@ export const updateStudents = (id, student, history) => dispatch => {
   axios.put(`/api/students/${id}`, student)
     .then(res => {
       dispatch(updateStudent(res.data));
-      history.push(`/campuses/${student.campusId}`)
+      history.push(`/students/${id}`)
     })
     .catch(err => console.error(`Student update unsuccessful!`, err));
 };
@@ -114,7 +114,7 @@ export const updateCampuses = (id, campus) => dispatch => {
 export const removeStudents = (id, history) => dispatch => {
   dispatch(removeStudent(id));
   axios.delete(`/api/students/${id}`)
-    .then(res => history.push(`/campuses/1`))
+    .then(res => history.push(`/students`))
     .catch(err => console.error(`Removing student unsuccessful!`, err));
 };
 
@@ -198,7 +198,7 @@ function reducer(state = initialState, action) {
     case REMOVE_CAMPUS:
       return {
         ...state,
-        students: state.campuses.filter(campus => campus.id !== action.id)
+        campuses: state.campuses.filter(campus => campus.id !== action.id)
       }
 
     default:

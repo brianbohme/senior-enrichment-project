@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import Campus from './campus';
 
 const AllCampuses = props => (
   <div className="home">
@@ -12,23 +12,7 @@ const AllCampuses = props => (
     <div className="media-heading large-font text-center">
       <ul className="list-unstyled">
         {
-          props.campuses.map(campus => {
-            return (
-              <div key={campus.id}>
-                <li>
-                  <img width="250" height="250" src={campus.image} />
-                </li>
-                <br />
-                <li>
-                  <NavLink to={`/campuses/${campus.id}`}>
-                    <h4>{campus.name}</h4>
-                  </NavLink>
-                </li>
-                <br />
-                <br />
-              </div>
-            )
-          })
+          props.campuses.map(campus => <Campus campus={campus} key={campus.id} />)
         }
       </ul>
     </div>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { NavLink } from 'react-router-dom';
 import Student from './Student';
 
 const AllStudents = props => (
@@ -13,7 +12,7 @@ const AllStudents = props => (
     <div className="media-heading large-font text-center">
       <ul className="list-unstyled">
         {
-          props.students.map(student => <Student student={student} key={student.id} id={student.id} />)
+          props.students.map(student => <Student student={student} key={student.id} />)
         }
       </ul>
     </div>
