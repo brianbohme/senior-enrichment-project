@@ -1,10 +1,8 @@
-# Senior Enrichment Project
-
-By Brian Bohme
-
-# Campus Manager
+# Senior Enrichment Project - Campus Manager
 
 A simple manager for campuses and students!
+
+By Brian Bohme, Fullstack Academy
 
 ## Setting up
 
