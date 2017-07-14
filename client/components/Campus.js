@@ -1,6 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+/* This renders a single campus image/name for use in a list. Includes dynamic transition functionality. */
+
+/* -----------------    COMPONENT     ------------------ */
+
 export default function Campus(props) {
 
   const campus = props.campus;
@@ -22,20 +26,4 @@ export default function Campus(props) {
   )
 };
 
-
-
-
-/* <div>
-      <li>
-        <img width="250" height="250" src={campus.image} />
-      </li>
-      <br />
-      <li>
-        <NavLink to={`/campuses/${campus.id}`}>
-          <h4>{campus.name}</h4>
-        </NavLink>
-      </li>
-      <br />
-      <br />
-    </div> */
 

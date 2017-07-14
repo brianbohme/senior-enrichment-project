@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
+/* The top navigation bar */
+
+/* -----------------    COMPONENT     ------------------ */
 
 export default class Navbar extends Component {
 

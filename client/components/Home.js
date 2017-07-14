@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
+/* The home page! */
+
+/* -----------------    COMPONENT     ------------------ */
+
 const Home = props => (
   <div className="home">
     <div className="banner text-center text-inverted">
@@ -38,6 +42,9 @@ const Home = props => (
     </div>
   </div>
 );
+
+/* -----------------    CONTAINER     ------------------ */
+
 
 const mapStateToProps = state => ({
   campuses: state.campuses

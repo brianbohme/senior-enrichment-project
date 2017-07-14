@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { writeCampus, postCampus } from '../store';
 
+/* For to register a new campus */
+
+/* -----------------    COMPONENT     ------------------ */
+
 function NewCampusEntry(props) {
   return (
     <form onSubmit={props.handleSubmit}>
@@ -16,7 +20,7 @@ function NewCampusEntry(props) {
   );
 }
 
-//Connect Component
+/* -----------------    CONTAINER     ------------------ */
 
 const mapStateToProps = (state, ownProps) => ({
   newCampusEntry: state.newCampusEntry

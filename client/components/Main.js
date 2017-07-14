@@ -12,6 +12,10 @@ import AllCampuses from './AllCampuses';
 import ErrorPage from './ErrorPage';
 import AllStudents from './AllStudents';
 
+/* Main routing and front end structure */
+
+/* -----------------    COMPONENT     ------------------ */
+
 export default class Main extends Component {
 
   componentDidMount() {

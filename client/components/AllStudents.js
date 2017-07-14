@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Student from './Student';
 
+/* This component renders a basic list of all students */
+
+/* -----------------    COMPONENT     ------------------ */
+
 const AllStudents = props => (
   <div className="home">
     <div className="banner text-center text-inverted">
@@ -19,7 +23,7 @@ const AllStudents = props => (
   </div>
 );
 
-//Connect Component
+/* -----------------    CONTAINER     ------------------ */
 
 const mapStateToProps = state => ({
   students: state.students

@@ -4,6 +4,10 @@ import store from '../store';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
+/* This component generates a basic list of campuses with number of students badge */
+
+/* -----------------    COMPONENT     ------------------ */
+
 function CampusList(props) {
   const getCount = campusId => {
     let count = props.students.filter(student => {
@@ -34,7 +38,8 @@ function CampusList(props) {
   );
 }
 
-//Connect Component
+/* -----------------    CONTAINER     ------------------ */
+
 const mapStateToProps = state => ({
   campuses: state.campuses,
   students: state.students

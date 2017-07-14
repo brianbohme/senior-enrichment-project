@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Campus from './campus';
 
+
+/* This component renders a list of all campuses using the Campus module */
+
+/* -----------------    COMPONENT     ------------------ */
+
 const AllCampuses = props => (
   <div className="home">
     <div className="banner text-center text-inverted">
@@ -18,6 +23,8 @@ const AllCampuses = props => (
     </div>
   </div>
 );
+
+/* -----------------    CONTAINER     ------------------ */
 
 const mapStateToProps = state => ({
   campuses: state.campuses

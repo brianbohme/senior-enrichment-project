@@ -12,6 +12,14 @@ module.exports = io => {
       socket.broadcast.emit('new-student', student);
     });
 
+    socket.on('student-update', student => {
+      socket.broadcast.emit('student-update', student);
+    });
+
+    socket.on('campus-update', campus => {
+      socket.broadcast.emit('campus-update', campus);
+    });
+
   });
 
 };

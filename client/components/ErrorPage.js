@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
+/* This component renders when you reach an invalid URL extension */
+
+/* -----------------    COMPONENT     ------------------ */
+
 export default function ErrorPage(props) {
   return (
     <div className="home">

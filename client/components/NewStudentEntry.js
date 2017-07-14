@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import store, { postStudent, writeStudent } from '../store';
 
+/* Component to register a new student. Is not using react-redux because complicated state handling */
+
+/* -----------------    COMPONENT     ------------------ */
+
 export default class NewStudentEntry extends Component {
 
   constructor() {

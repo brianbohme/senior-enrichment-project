@@ -18,19 +18,26 @@ const initialState = {
 
 // ACTION TYPES
 
+/* Student */
+
 const GET_STUDENT = 'GET_STUDENT';
 const GET_STUDENTS = 'GET_STUDENTS';
 const WRITE_STUDENT = 'WRITE_STUDENT';
-const UPDATE_STUDENT = 'UPDATE_STUDENT';
+const REMOVE_STUDENT = 'REMOVE_STUDENT';
 const WRITE_STUDENT_UPDATE = 'WRITE_STUDENT_UPDATE';
+const UPDATE_STUDENT = 'UPDATE_STUDENT';
+
+/* Campus */
+
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const GET_CAMPUS = 'GET_CAMPUS';
 const WRITE_CAMPUS = 'WRITE_CAMPUS';
-const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
-const REMOVE_STUDENT = 'REMOVE_STUDENT';
 const REMOVE_CAMPUS = 'REMOVE_CAMPUS';
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
 
 // ACTION CREATORS
+
+/* Student */
 
 export const getStudent = student => ({ type: GET_STUDENT, student });
 
@@ -38,11 +45,13 @@ export const getStudents = students => ({ type: GET_STUDENTS, students });
 
 export const writeStudent = content => ({ type: WRITE_STUDENT, content });
 
+export const removeStudent = id => ({ type: REMOVE_STUDENT, id });
+
 export const writeStudentUpdate = content => ({ type: WRITE_STUDENT_UPDATE, content });
 
 export const updateStudent = student => ({ type: UPDATE_STUDENT, student });
 
-export const removeStudent = id => ({ type: REMOVE_STUDENT, id });
+/* Campus */
 
 export const getCampuses = campuses => ({ type: GET_CAMPUSES, campuses });
 
@@ -50,27 +59,20 @@ export const getCampus = campus => ({ type: GET_CAMPUS, campus });
 
 export const writeCampus = content => ({ type: WRITE_CAMPUS, content });
 
-export const updateCampus = campus => ({ type: UPDATE_CAMPUS, campus });
-
 export const removeCampus = id => ({ type: REMOVE_CAMPUS, id });
+
+export const updateCampus = campus => ({ type: UPDATE_CAMPUS, campus });
 
 
 // THUNK CREATORS
+
+/* Student */
 
 export const fetchStudents = () => dispatch => {
   axios.get('/api/students')
     .then(res => res.data)
     .then(students => {
       const action = getStudents(students);
-      dispatch(action);
-    });
-};
-
-export const fetchCampuses = () => dispatch => {
-  axios.get('/api/campuses')
-    .then(res => res.data)
-    .then(campuses => {
-      const action = getCampuses(campuses);
       dispatch(action);
     });
 };
@@ -85,6 +87,36 @@ export const postStudent = (student, history) => dispatch => {
     })
 };
 
+export const updateStudents = (id, student, history) => dispatch => {
+  axios.put(`/api/students/${id}`, student)
+    .then(res => {
+      dispatch(updateStudent(res.data));
+      socket.emit('student-update', res.data);
+      history.push(`/students/${id}`);
+    })
+    .catch(err => console.error(`Student update unsuccessful!`, err));
+};
+
+export const removeStudents = (id, history) => dispatch => {
+  dispatch(removeStudent(id));
+  axios.delete(`/api/students/${id}`)
+    .then(res => {
+      history.push(`/students`)
+    })
+    .catch(err => console.error(`Removing student unsuccessful!`, err));
+};
+
+/* Campus */
+
+export const fetchCampuses = () => dispatch => {
+  axios.get('/api/campuses')
+    .then(res => res.data)
+    .then(campuses => {
+      const action = getCampuses(campuses);
+      dispatch(action);
+    });
+};
+
 export const postCampus = (campus, history) => dispatch => {
   axios.post('/api/campuses', campus)
     .then(res => res.data)
@@ -96,34 +128,25 @@ export const postCampus = (campus, history) => dispatch => {
     })
 };
 
-export const updateStudents = (id, student, history) => dispatch => {
-  axios.put(`/api/students/${id}`, student)
-    .then(res => {
-      dispatch(updateStudent(res.data));
-      history.push(`/students/${id}`)
-    })
-    .catch(err => console.error(`Student update unsuccessful!`, err));
-};
-
 export const updateCampuses = (id, campus) => dispatch => {
   axios.put(`/api/campuses/${id}`, campus)
-    .then(res => dispatch(updateCampus(res.data)))
+    .then(res => {
+      dispatch(updateCampus(res.data));
+      socket.emit('campus-update', res.data)
+    })
     .catch(err => console.error(`Campus update unsuccessful!`, err));
-};
-
-export const removeStudents = (id, history) => dispatch => {
-  dispatch(removeStudent(id));
-  axios.delete(`/api/students/${id}`)
-    .then(res => history.push(`/students`))
-    .catch(err => console.error(`Removing student unsuccessful!`, err));
 };
 
 export const removeCampuses = (id, history) => dispatch => {
   dispatch(removeCampus(id));
   axios.delete(`/api/campuses/${id}`)
-    .then(res => history.push(`/campuses`))
+    .then(res => {
+      history.push(`/campuses`);
+    })
     .catch(err => console.error(`Removing campus unsuccessful!`, err));
 };
+
+
 
 // REDUCER
 
@@ -148,6 +171,20 @@ function reducer(state = initialState, action) {
         ...state,
         newCampusEntry: action.content
       };
+
+    case UPDATE_CAMPUS:
+      return {
+        ...state,
+        campuses: state.campuses.map(campus => (
+          action.campus.id === campus.id ? action.campus : campus
+        ))
+      }
+
+    case REMOVE_CAMPUS:
+      return {
+        ...state,
+        campuses: state.campuses.filter(campus => campus.id !== action.id)
+      }
 
     case GET_STUDENTS:
       return {
@@ -181,24 +218,10 @@ function reducer(state = initialState, action) {
         ))
       }
 
-    case UPDATE_CAMPUS:
-      return {
-        ...state,
-        campuses: state.campuses.map(campus => (
-          action.campus.id === campus.id ? action.campus : campus
-        ))
-      }
-
     case REMOVE_STUDENT:
       return {
         ...state,
         students: state.students.filter(student => student.id !== action.id)
-      }
-
-    case REMOVE_CAMPUS:
-      return {
-        ...state,
-        campuses: state.campuses.filter(campus => campus.id !== action.id)
       }
 
     default:
@@ -206,6 +229,8 @@ function reducer(state = initialState, action) {
   }
 
 }
+
+// Main Store Export
 
 const store = createStore(
   reducer,

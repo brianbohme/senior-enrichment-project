@@ -6,7 +6,13 @@ import { withRouter } from 'react-router';
 import _ from 'lodash';
 import { updateStudents, writeStudentUpdate, updateCampuses, removeCampuses } from '../store';
 
-class StudentList extends Component {
+/* Displays all the information within the campus view page.
+This includes deleting/updating campus info, adding a new student,
+or adding an exisiting student from another campus. */
+
+/* -----------------    COMPONENT     ------------------ */
+
+class CampusView extends Component {
 
   constructor(props) {
     super(props);
@@ -142,6 +148,9 @@ class StudentList extends Component {
   }
 }
 
+/* -----------------    CONTAINER     ------------------ */
+
+
 const mapStateToProps = ({ students, campuses, newStudentUpdate }, ownProps) => {
   const paramId = Number(ownProps.match.params.campusId);
   return {
@@ -155,4 +164,4 @@ const mapDispatch = { updateStudents, writeStudentUpdate, updateCampuses, remove
 
 export default withRouter(connect(
   mapStateToProps, mapDispatch
-)(StudentList));
+)(CampusView));

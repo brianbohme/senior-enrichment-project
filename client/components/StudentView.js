@@ -5,6 +5,8 @@ import _ from 'lodash';
 import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
+/* This component renders the student's individual view, including updating their info or deleting them. */
+
 
 /* -----------------    COMPONENT     ------------------ */
 

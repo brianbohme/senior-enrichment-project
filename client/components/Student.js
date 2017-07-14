@@ -1,6 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+/* Basic student view */
+
+/* -----------------    COMPONENT     ------------------ */
+
 export default function Student(props) {
 
   const student = props.student;

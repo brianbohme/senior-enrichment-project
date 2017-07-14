@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import CampusList from './CampusList';
 import { NavLink } from 'react-router-dom';
 
+/* Sidebar, with the basic list of campuses */
+
+/* -----------------    COMPONENT     ------------------ */
+
 
 export default class Sidebar extends Component {
 
