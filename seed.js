@@ -14,6 +14,10 @@ const students = [{
   name: 'Evan Hansen',
   email: 'dearevanhansen@connerproject.com',
   campusId: 2
+}, {
+  name: 'Elder Price',
+  email: 'hello@mormon.com',
+  campusId: 2
 }];
 
 const campuses = [{

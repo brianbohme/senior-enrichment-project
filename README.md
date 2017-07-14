@@ -4,6 +4,10 @@ A simple manager for campuses and students!
 
 *By Brian Bohme, Fullstack Academy*
 
+### Video Walkthrough
+
+A video walkthrough of this project can be found [here](https://www.youtube.com/)
+
 ## Setting up
 
 1. Clone this repo
@@ -12,9 +16,6 @@ A simple manager for campuses and students!
 4. Run `npm run seed` from terminal when in this repo's folder
 5. `npm start`
 
-### Video Walkthrough
-
-A video walkthrough of this project can be found [here](https://www.youtube.com/)
 
 
 
