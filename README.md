@@ -2,7 +2,7 @@
 
 A simple manager for campuses and students!
 
-By Brian Bohme, Fullstack Academy
+*By Brian Bohme, Fullstack Academy*
 
 ## Setting up
 
@@ -14,7 +14,7 @@ By Brian Bohme, Fullstack Academy
 
 ### Video Walkthrough
 
-A video walkthrough of this project can be found [here](www.youtube.com)
+A video walkthrough of this project can be found [here](https://www.youtube.com/)
 
 
 
