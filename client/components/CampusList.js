@@ -28,7 +28,7 @@ function CampusList(props) {
         })
       }
       <li>
-        <NavLink to="/new-campus">Add a new campus...</NavLink>
+        <NavLink to="/new-campus">+ Add a new campus</NavLink>
       </li>
     </ul>
   );

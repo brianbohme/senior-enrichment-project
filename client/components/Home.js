@@ -7,14 +7,15 @@ const Home = props => (
   <div className="home">
     <div className="banner text-center text-inverted">
       <h1>Welcome to Campus Manager</h1>
-      <h1><small>Manage your institution's campuses and enrolled students here</small></h1>
+      <img width='350' height='250' src='http://www.clipartlord.com/wp-content/uploads/2015/10/school-building5.png' />
+      <h1><small>Manage campuses and enrolled students here</small></h1>
     </div>
     <br />
     <div className="inverted">
       <div className="container">
         <div className="media large-font">
           <div className="media-body">
-            <h3 className="media-heading large-font text-center">Campuses</h3>
+            <h3 className="media-heading large-font text-center">Current Campuses</h3>
           </div>
         </div>
       </div>

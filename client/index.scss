@@ -5,6 +5,9 @@ $active-font-folor: #D4D5D8;
 $active-background: #5294E2;
 body {
   height: 160vh;
+  .navbarlink {
+    font-weight: bold;
+  }
   .bordered {
     border: 1px solid black
   }

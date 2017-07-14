@@ -129,6 +129,7 @@ class StudentList extends Component {
           <h4>Add an Existing Student</h4>
           <form onSubmit={this.handleSubmit}>
             <select style={{ marginBottom: .5 + 'em' }} onChange={this.handleChange}>
+              <option selected disabled>Choose student...</option>
               {
                 allOtherStudents.map(student => <option key={student.id}>Name: {student.name}, Email: {student.email}, Student ID: {student.id}</option>)
               }
