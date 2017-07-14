@@ -8,6 +8,7 @@ import NewCampusEntry from './NewCampusEntry';
 import StudentView from './StudentView';
 import store, { fetchStudents, fetchCampuses } from '../store';
 import Home from './Home';
+import AllCampuses from './AllCampuses';
 import ErrorPage from './ErrorPage';
 import AllStudents from './AllStudents';
 
@@ -32,6 +33,7 @@ export default class Main extends Component {
             <Route path="/students/:studentId" component={StudentView} />
             <Route path="/students" component={AllStudents} />
             <Route exact path="/" component={Home} />
+            <Route exact path="/campuses" component={AllCampuses} />
             <Route component={ErrorPage} />
           </Switch>
         </main>

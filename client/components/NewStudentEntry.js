@@ -42,34 +42,57 @@ export default class NewStudentEntry extends Component {
 
   render() {
     return (
-      <form id="new-message-form" onSubmit={this.handleSubmit}>
-        <div className="input-group input-group-lg">
-          <input
-            className="form-control"
-            type="text"
-            name="content"
-            value={this.state.newStudentEntry.name}
-            onChange={this.handleNameChange}
-            placeholder="Enter New Student's Name"
-            required
-          />
-          <input
-            className="form-control"
-            type="text"
-            name="content"
-            value={this.state.newStudentEntry.email}
-            onChange={this.handleEmailChange}
-            placeholder="Enter New Student's Email"
-            required
-          />
-          <span className="input-group-btn">
-            <button className="btn btn-default" type="submit">Add to Campus</button>
-          </span>
+      <div className="signin-container">
+        <div className="buffer local">
+          <form id="new-message-form" onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label>Name</label>
+              <input
+                className="form-control"
+                type="text"
+                name="content"
+                value={this.state.newStudentEntry.name}
+                onChange={this.handleNameChange}
+                placeholder="Enter New Student's Name"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Email</label>
+              <input
+                className="form-control"
+                type="text"
+                name="content"
+                value={this.state.newStudentEntry.email}
+                onChange={this.handleEmailChange}
+                placeholder="Enter New Student's Email"
+                required
+              />
+              <button style={{ marginTop: .5 + 'em' }} className="btn btn-block btn-primary" type="submit">Add to Campus</button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     );
   }
 }
+
+
+// <form onSubmit={this.handleUpdate}>
+//   <div className="form-group">
+//     <label>Update name</label>
+//     <input
+//       name="name"
+//       type="name"
+//       className="form-control"
+//       placeholder="leave blank if none"
+//       defaultValue=""
+//     />
+
+//     <button type="submit" className="btn btn-block btn-primary">Update information</button>
+
+
+
 
 
 

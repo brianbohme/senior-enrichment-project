@@ -5,19 +5,24 @@ const Campuses = require('./server/db/models/campuses');
 const students = [{
   name: 'Brian Bohme',
   email: 'bohmebrian@gmail.com',
+  campusId: 2
+}, {
+  name: 'Alexander Hamilton',
+  email: 'yourobddientservent@a.ham',
   campusId: 1
 }, {
-  name: 'Random Student',
-  email: 'randomstudent@yahoo.com',
+  name: 'Evan Hansen',
+  email: 'dearevanhansen@connerproject.com',
   campusId: 2
+
 }];
 
 const campuses = [{
-  name: 'Fullstack Academy',
-  image: 'insertimagehere'
+  name: 'Princeton',
+  image: 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Emmanuel_College_Front_Court%2C_Cambridge%2C_UK_-_Diliff.jpg'
 }, {
-  name: 'Grace Hopper',
-  image: 'insertimagethere'
+  name: 'Fullstack Academy',
+  image: 'https://www.pmxagency.com/wp-content/uploads/2013/10/photo2_b.jpg'
 }];
 
 const seed = () =>

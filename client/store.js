@@ -13,6 +13,7 @@ const initialState = {
   newCampusEntry: '',
   students: [],
   newStudentEntry: { name: '', email: '', campus: 0 },
+  newStudentUpdate: { name: '', email: '', campus: 0, id: 0 }
 };
 
 // ACTION TYPES
@@ -21,11 +22,13 @@ const GET_STUDENT = 'GET_STUDENT';
 const GET_STUDENTS = 'GET_STUDENTS';
 const WRITE_STUDENT = 'WRITE_STUDENT';
 const UPDATE_STUDENT = 'UPDATE_STUDENT';
+const WRITE_STUDENT_UPDATE = 'WRITE_STUDENT_UPDATE';
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const GET_CAMPUS = 'GET_CAMPUS';
 const WRITE_CAMPUS = 'WRITE_CAMPUS';
 const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
 const REMOVE_STUDENT = 'REMOVE_STUDENT';
+const REMOVE_CAMPUS = 'REMOVE_CAMPUS';
 
 // ACTION CREATORS
 
@@ -34,6 +37,8 @@ export const getStudent = student => ({ type: GET_STUDENT, student });
 export const getStudents = students => ({ type: GET_STUDENTS, students });
 
 export const writeStudent = content => ({ type: WRITE_STUDENT, content });
+
+export const writeStudentUpdate = content => ({ type: WRITE_STUDENT_UPDATE, content });
 
 export const updateStudent = student => ({ type: UPDATE_STUDENT, student });
 
@@ -46,6 +51,8 @@ export const getCampus = campus => ({ type: GET_CAMPUS, campus });
 export const writeCampus = content => ({ type: WRITE_CAMPUS, content });
 
 export const updateCampus = campus => ({ type: UPDATE_CAMPUS, campus });
+
+export const removeCampus = id => ({ type: REMOVE_CAMPUS, id });
 
 
 // THUNK CREATORS
@@ -111,6 +118,13 @@ export const removeStudents = (id, history) => dispatch => {
     .catch(err => console.error(`Removing student unsuccessful!`, err));
 };
 
+export const removeCampuses = (id, history) => dispatch => {
+  dispatch(removeCampus(id));
+  axios.delete(`/api/campuses/${id}`)
+    .then(res => history.push(`/campuses`))
+    .catch(err => console.error(`Removing campus unsuccessful!`, err));
+};
+
 // REDUCER
 
 function reducer(state = initialState, action) {
@@ -153,6 +167,12 @@ function reducer(state = initialState, action) {
         newStudentEntry: action.content
       }
 
+    case WRITE_STUDENT_UPDATE:
+      return {
+        ...state,
+        newStudentUpdate: action.content
+      }
+
     case UPDATE_STUDENT:
       return {
         ...state,
@@ -173,6 +193,12 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         students: state.students.filter(student => student.id !== action.id)
+      }
+
+    case REMOVE_CAMPUS:
+      return {
+        ...state,
+        students: state.campuses.filter(campus => campus.id !== action.id)
       }
 
     default:

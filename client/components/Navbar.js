@@ -11,10 +11,10 @@ export default class Navbar extends Component {
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               <li>
-                <NavLink to="/students" activeClassName="active">All Students</NavLink>
+                <NavLink to="/" activeClassName="active">Home</NavLink>
               </li>
               <li>
-                <NavLink to="/" activeClassName="active">Home</NavLink>
+                <NavLink to="/students" activeClassName="active">All Students</NavLink>
               </li>
             </ul>
           </div>

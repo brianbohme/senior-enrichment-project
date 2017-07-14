@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateStudents, removeStudents } from '../store';
 import _ from 'lodash';
+import { withRouter } from 'react-router';
+import { NavLink } from 'react-router-dom';
+
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -14,15 +17,19 @@ class UpdateStudent extends React.Component {
   }
 
   render() {
-    const { student } = this.props;
+    const { student, campuses } = this.props;
+    const campusCopy = Object.assign({}, campuses)
+    const campus = _.find(campusCopy, campus => campus.id === student.campusId);
+    const studentCopy = Object.assign({}, student);
+
 
     return (
       <div>
         <h4>Student Profile</h4>
         <ul>
-          <li>Name: {student.name}</li>
-          <li>Email: {student.email}</li>
-          <li>Campus: {student.campusId}</li>
+          <li>Name: {studentCopy.name}</li>
+          <li>Email: {studentCopy.email}</li>
+          <li>Campus: <NavLink to={`/campuses/${campus.id}`}>{campus.name}</NavLink></li>
         </ul>
         <div className="signin-container">
           <div className="buffer local">
@@ -59,7 +66,7 @@ class UpdateStudent extends React.Component {
               <button type="submit" className="btn btn-block btn-primary">Update information</button>
             </form>
             <form onSubmit={this.handleDelete}>
-              <button type="submit" className="btn btn-block btn-primary">Delete Student</button>
+              <button style={{ marginTop: .5 + 'em' }} type="submit" className="btn btn-block btn-primary">Delete Student</button>
             </form>
           </div>
         </div>
@@ -69,7 +76,13 @@ class UpdateStudent extends React.Component {
 
   handleSubmit(event) {
     const { student } = this.props;
-    event.preventDefault();
+    const { campuses } = this.props;
+    const campusCopy = Object.assign({}, campuses);
+    console.log(campuses, campusCopy)
+    event.preventDefault()
+
+
+    // event.preventDefault();
     if (!event.target.name.value) {
       var name = student.name
     } else {
@@ -83,7 +96,8 @@ class UpdateStudent extends React.Component {
     if (!event.target.campus.value) {
       var campusId = student.campusId
     } else {
-      var campusId = event.target.campus.value
+      var campus = _.find(campusCopy, campus => campus.name === event.target.campus.value);
+      var campusId = campus.id
     };
     const studentUpdate = {
       name: name,
@@ -104,17 +118,18 @@ class UpdateStudent extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ students }, ownProps) => {
+const mapState = ({ students, campuses }, ownProps) => {
   const paramId = Number(ownProps.match.params.studentId);
   return {
-    student: _.find(students, student => student.id === paramId)
+    student: _.find(students, student => student.id === paramId),
+    campuses: campuses
   };
 };
 
 
 const mapDispatch = { updateStudents, removeStudents };
 
-export default connect(mapState, mapDispatch)(UpdateStudent);
+export default withRouter(connect(mapState, mapDispatch)(UpdateStudent));
 
 
 

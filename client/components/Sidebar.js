@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import CampusList from './CampusList';
+import { NavLink } from 'react-router-dom';
+
 
 export default class Sidebar extends Component {
 
@@ -11,7 +13,9 @@ export default class Sidebar extends Component {
             <div>Campus Manager</div>
           </h4>
         </div>
-        <h5>Campuses</h5>
+        <NavLink to='/campuses'>
+          <h5>Campuses</h5>
+        </NavLink>
         <CampusList />
       </sidebar>
     );
