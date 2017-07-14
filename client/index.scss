@@ -4,7 +4,59 @@ $darker-background: #303641;
 $active-font-folor: #D4D5D8;
 $active-background: #5294E2;
 body {
-  height: 130vh;
+  height: 160vh;
+  .bordered {
+    border: 1px solid black
+  }
+  .card-container {
+    cursor: pointer;
+    height: 250px;
+    perspective: 600;
+    position: relative;
+    width: 250px;
+  }
+  .mainhead {
+    text-align: center;
+    margin-right: 20px;
+    margin-top: 30px;
+  }
+  .title {
+    color: #5294E2;
+    text-shadow: -1px 0 #AFB1B6, 0 1px #AFB1B6, 1px 0 #AFB1B6, 0 -1px #AFB1B6;
+  }
+  .photoCard {
+    width: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .card {
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s ease-in-out;
+    width: 100%;
+  }
+  .card:hover {
+    transform: rotateY(180deg);
+  }
+  .card .side {
+    backface-visibility: hidden;
+    border-radius: 6px;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+  }
+  .card .back {
+    background: #eaeaed;
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000000;
+    color: white;
+    line-height: 150px;
+    text-align: center;
+    transform: rotateY(180deg);
+  }
   #app {
     height: 100%;
     &>div {

@@ -76,11 +76,11 @@ class StudentList extends Component {
     return (
       <div>
         <div>
-          <h3>{campusCopy.name}</h3>
+          <h2 className="title">{campusCopy.name}</h2>
           <br />
-
-          <img width="200" height="200" src={campusCopy.image} />
-
+          <div className="photoCard">
+            <img width="200" height="200" src={campusCopy.image} />
+          </div>
           <br />
           <h4>Update Campus Info</h4>
           <div className="signin-container">
@@ -108,7 +108,7 @@ class StudentList extends Component {
                 <button style={{ marginBottom: .5 + 'em' }} type="submit" className="btn btn-block btn-primary">Update information</button>
               </form>
               <form onSubmit={this.handleDelete}>
-                <button type="submit" className="btn btn-block btn-primary">Delete Campus</button>
+                <button type="submit" className="btn btn-block btn-primary" style={{ backgroundColor: '#ff4c4c', border: 'red' }}>Delete Campus</button>
               </form>
             </div>
           </div>
@@ -116,10 +116,13 @@ class StudentList extends Component {
         <br />
         <br />
         <div>
-          <h3>Enrolled Students</h3>
-          <ul className="media-list">
-            {filteredStudents.map(student => <Student student={student} key={student.id} id={student.id} />)}
-          </ul>
+          <div className="bordered">
+            <h3 style={{ marginLeft: .5 + 'em' }}>Enrolled Students</h3>
+            <br />
+            <ul className="media-list" style={{ marginLeft: 1 + 'em' }}>
+              {filteredStudents.map(student => <Student student={student} key={student.id} id={student.id} />)}
+            </ul>
+          </div>
           <br />
           <h4>Enroll a New Student</h4>
           <NewStudentEntry campusId={campusId} />

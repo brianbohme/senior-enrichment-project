@@ -18,9 +18,9 @@ class UpdateStudent extends React.Component {
 
   render() {
     const { student, campuses } = this.props;
-    const campusCopy = Object.assign({}, campuses)
-    const campus = _.find(campusCopy, campus => campus.id === student.campusId);
+    const campusCopy = Object.assign({}, campuses);
     const studentCopy = Object.assign({}, student);
+    const campus = _.find(campusCopy, campus => campus.id === student.campusId);
 
 
     return (
@@ -31,6 +31,8 @@ class UpdateStudent extends React.Component {
           <li>Email: {studentCopy.email}</li>
           <li>Campus: <NavLink to={`/campuses/${campus.id}`}>{campus.name}</NavLink></li>
         </ul>
+        <br />
+        <br />
         <div className="signin-container">
           <div className="buffer local">
             <form onSubmit={this.handleSubmit}>
@@ -66,7 +68,7 @@ class UpdateStudent extends React.Component {
               <button type="submit" className="btn btn-block btn-primary">Update information</button>
             </form>
             <form onSubmit={this.handleDelete}>
-              <button style={{ marginTop: .5 + 'em' }} type="submit" className="btn btn-block btn-primary">Delete Student</button>
+              <button style={{ marginTop: .5 + 'em', backgroundColor: '#ff4c4c', border: 'red' }} type="submit" className="btn btn-block btn-primary">Delete Student</button>
             </form>
           </div>
         </div>
@@ -78,11 +80,7 @@ class UpdateStudent extends React.Component {
     const { student } = this.props;
     const { campuses } = this.props;
     const campusCopy = Object.assign({}, campuses);
-    console.log(campuses, campusCopy)
-    event.preventDefault()
-
-
-    // event.preventDefault();
+    event.preventDefault();
     if (!event.target.name.value) {
       var name = student.name
     } else {

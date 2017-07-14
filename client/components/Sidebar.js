@@ -10,7 +10,7 @@ export default class Sidebar extends Component {
       <sidebar>
         <div className="sidebar-header">
           <h4 href="#">
-            <div>Campus Manager</div>
+            <div className="mainhead">Campus Manager</div>
           </h4>
         </div>
         <NavLink to='/campuses'>

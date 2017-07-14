@@ -10,11 +10,11 @@ const AllCampuses = props => (
     </div>
     <br />
     <div className="media-heading large-font text-center">
-      <ul className="list-unstyled">
-        {
-          props.campuses.map(campus => <Campus campus={campus} key={campus.id} />)
-        }
-      </ul>
+
+      {
+        props.campuses.map(campus => <Campus campus={campus} key={campus.id} />)
+      }
+
     </div>
   </div>
 );

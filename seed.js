@@ -5,16 +5,15 @@ const Campuses = require('./server/db/models/campuses');
 const students = [{
   name: 'Brian Bohme',
   email: 'bohmebrian@gmail.com',
-  campusId: 2
+  campusId: 4
 }, {
   name: 'Alexander Hamilton',
-  email: 'yourobddientservent@a.ham',
+  email: 'yourobedientservant@a.ham',
   campusId: 1
 }, {
   name: 'Evan Hansen',
   email: 'dearevanhansen@connerproject.com',
   campusId: 2
-
 }];
 
 const campuses = [{
@@ -23,6 +22,12 @@ const campuses = [{
 }, {
   name: 'Fullstack Academy',
   image: 'https://www.pmxagency.com/wp-content/uploads/2013/10/photo2_b.jpg'
+}, {
+  name: 'Yale',
+  image: 'https://www.yale.edu/sites/default/files/styles/cover_image_500x500/public/living_yale.jpg?itok=e-jOFiwS'
+}, {
+  name: 'Yale-NUS',
+  image: 'https://i.ytimg.com/vi/mkU6Vu5go6w/maxresdefault.jpg'
 }];
 
 const seed = () =>
