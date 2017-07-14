@@ -32,7 +32,6 @@ class StudentList extends Component {
     const inputId = parseInt(input.substring(input.length - 2));
     const campusId = Number(this.props.match.params.campusId);
     const { students, campus } = this.props;
-    // const filteredStudent = (students.filter(student => student.id === inputId))[0];
     const filteredStudent = _.find(students, student => student.id === inputId)
     this.props.writeStudentUpdate({ name: filteredStudent.name, email: filteredStudent.email, campus: campusId, id: inputId })
   }
@@ -142,11 +141,6 @@ class StudentList extends Component {
   }
 }
 
-//Connect Component
-// const mapStateToProps = state => ({
-//   students: state.students
-// })
-
 const mapStateToProps = ({ students, campuses, newStudentUpdate }, ownProps) => {
   const paramId = Number(ownProps.match.params.campusId);
   return {
@@ -160,44 +154,4 @@ const mapDispatch = { updateStudents, writeStudentUpdate, updateCampuses, remove
 
 export default withRouter(connect(
   mapStateToProps, mapDispatch
-)(StudentList))
-
-
-
-
-// import React, { Component } from 'react';
-// import Student from './Student';
-// import NewStudentEntry from './NewStudentEntry';
-// import store from '../store';
-
-// export default class StudentList extends Component {
-
-//   constructor() {
-//     super();
-//     this.state = store.getState();
-//   }
-
-//   componentDidMount() {
-//     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
-//   }
-
-//   componentWillUnmount() {
-//     this.unsubscribe();
-//   }
-
-//   render() {
-
-//     const campusId = Number(this.props.match.params.campusId); // because it's a string "1", not a number!
-//     const students = this.state.students;
-//     const filteredStudents = students.filter(student => student.campusId === campusId);
-
-//     return (
-//       <div>
-//         <ul className="media-list">
-//           {filteredStudents.map(student => <Student student={student} key={student.id} id={student.id} />)}
-//         </ul>
-//         <NewStudentEntry campusId={campusId} />
-//       </div>
-//     );
-//   }
-// }
+)(StudentList));

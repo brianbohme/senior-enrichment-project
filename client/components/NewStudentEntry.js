@@ -78,20 +78,6 @@ export default class NewStudentEntry extends Component {
 }
 
 
-// <form onSubmit={this.handleUpdate}>
-//   <div className="form-group">
-//     <label>Update name</label>
-//     <input
-//       name="name"
-//       type="name"
-//       className="form-control"
-//       placeholder="leave blank if none"
-//       defaultValue=""
-//     />
-
-//     <button type="submit" className="btn btn-block btn-primary">Update information</button>
-
-
 
 
 

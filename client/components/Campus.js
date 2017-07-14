@@ -25,7 +25,7 @@ export default function Campus(props) {
 
 
 
-{/* <div>
+/* <div>
       <li>
         <img width="250" height="250" src={campus.image} />
       </li>
@@ -37,5 +37,5 @@ export default function Campus(props) {
       </li>
       <br />
       <br />
-    </div> */}
+    </div> */
 

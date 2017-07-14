@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
-import StudentList from './StudentList';
+import CampusView from './CampusView';
 import Student from './Student';
 import NewCampusEntry from './NewCampusEntry';
 import StudentView from './StudentView';
@@ -29,7 +29,7 @@ export default class Main extends Component {
         <main>
           <Switch>
             <Route path="/new-campus" component={NewCampusEntry} />
-            <Route path="/campuses/:campusId" component={StudentList} />
+            <Route path="/campuses/:campusId" component={CampusView} />
             <Route path="/students/:studentId" component={StudentView} />
             <Route path="/students" component={AllStudents} />
             <Route exact path="/" component={Home} />
